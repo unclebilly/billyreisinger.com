@@ -1,3 +1,6 @@
+body {
+  font-size: 16px;
+}
 .navbar {
   font-size: 18px;
   padding-top: 10px;
@@ -29,4 +32,34 @@
 .pizza_list li {
   float: left;
   margin: 10px;
+}
+.icon-bar {
+  background-color: burlywood;
+}
+.carousel {
+  width: auto;
+  max-width: 640px;
+  overflow: visible;
+}
+.carousel-caption {
+  background-color: #000;
+  width: 100%;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  padding: 5px;
+  opacity: 0.5;
+  font-size: 1em;
+}
+.carousel img {
+  max-width: 100%;
+  height: auto;
+}
+ul.contact li {
+  list-style-type: none;
+}
+ul.contact i {
+  display: inline-block;
+  min-width: 50px;
+  margin: 10px 0 10px 0;
 }
