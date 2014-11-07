@@ -1,0 +1,23 @@
+.navbar {
+  background-color: darkred;
+  /*background: url('../images/pizza_header.png') repeat-x;*/
+}
+.navbar a {
+  color: white;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+  color: darkred;
+}
+.navbar-brand {
+  float: none;
+}
+.navbar-collapse {
+  opacity: 0.9;
+}
+dt {
+  margin-top: 25px;
+  font-size: 1.3em;
+}
+.responsive_ad {
+  margin: 15px;
+}
