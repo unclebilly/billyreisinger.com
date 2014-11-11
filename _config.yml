@@ -1,3 +1,7 @@
 name: BillyReisinger.com
 markdown: redcarpet
-pygments: true
+highlighter: true
+exclude: 
+  - Gemfile*
+  - deploy.sh
+  - todo
