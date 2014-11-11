@@ -1,0 +1,450 @@
+<html>
+<head>
+	<title>Jash: JavaScript Shell</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="SHORTCUT ICON" href="favicon.ico" />
+</head>
+<body>
+<div class="wrap">
+	<h1>Jash: JavaScript Shell</h1>
+	<ul class="nav">
+		<li><a href="index.html">Home</a></li>
+		<li><a href="features.html">Features</a></li>
+		<li><a href="documentation.html">Documentation</a></li>
+		<li><a href="download.html">Download</a></li>
+		<li><a href="screenshots.html">Screenshots</a></li>
+	</ul>
+	<h3>A Cross-Browser Javascript Command-Line Debugging Tool</h3>
+	<h2>Documentation</h2>
+	<ol class="documentation">
+		<li><h3>Technical Documentation (JsDoc output)</h3>
+			<p>Technical documentation on every single method can be 
+			found in the <a href="/jash/jsdoc/">JsDoc</a> section.</p>
+		</li>
+		<li><h3>Installation</h3>
+			<p>Installation of Jash is fairly straightforward, and involves just 
+			a few steps: copying source code, modifying configuration information,
+			placing source code on a web server, and creating a script tag
+			or bookmarklet to use it. 
+			<ul>
+				<li class="subtopic"><h4>Copying source code</h4>
+				    <p>
+					To get the latest version of Jash source code, 
+					visit the <a href="download.html">download page</a>.
+				    </p>
+				</li>
+				
+				<li class="subtopic"><h4>Hosting source code</h4>
+				    <p>
+					You will need to place the Jash source code (Jash.js 
+					and Jash.css) in a public directory on a web server
+					in order to  host it.  You can use a web server on 
+					your computer or  you can use a public web server if you have access to one.
+				    </p>
+				</li>
+				
+				<li class="subtopic"><h4>Changing configuration information</h4>
+				    <p>
+					After downloading the source and moving it to your
+					server, you should change a few variables in the 
+					Jash.js file in order to reflect its new location. 
+				    </p>
+				</li>
+				
+				<li class="subtopic"><h4>Installing bookmarklet</h4>
+				    <p>
+					Installing a bookmarklet is as simple as creating a
+					new bookmark (or "favorite") in the browser of choice
+					and pasting the following URL in the location field, replacing
+					{YOUR_SERVER_URL} with the location you uploaded 
+					the Jash source files: 
+				    </p>
+				    <pre>javascript:(function(){document.body.appendChild(document.createElement('script')).src='{YOUR_SERVER_URL}/Jash.js';})();</pre>
+				    <p>
+					You can then load Jash on any page by simply clicking on 
+					this bookmarklet. The bookmarklet simply adds a 
+					new script tag to your page and sets the source
+					to the URL where Jash can be found.
+				    </p>
+				</li>
+				<li class="subtopic"><h4>Using a script tag</h4>
+				    <p>
+					You can also source in Jash by embedding a script tag
+					on the page you wish to debug. This is required
+					if you wish to debug scripts that run 
+					before or during the window.load event.  The
+					script tag should simply refer to the location 
+					in which you have uploaded the Jash source code: 
+				    </p>
+				    <pre>< script type="text/javascript" src="{YOUR_SERVER_URL}/Jash.js">< /script></pre>
+				</li>
+			</ul>
+		</li>
+		<li><h3>Usage</h3>
+			
+			<ul>
+				<li class="subtopic"><h4>Command-line Javascript</h4>
+				    <p>
+					To evaluate arbitrary Javascript, enter the code
+					you wish to evaluate into the input console by typing
+					or copying and pasting your command(s) and pressing 
+					the Enter key.  You may also evaluate input
+					by clicking on the "Evaluate" button or using
+					the "Evaluate" button's access key stroke (see Hotkeys).
+				    </p>
+				</li>
+				<li class="subtopic"><h4>Inspecting Objects using <em>jash.dump()</em> and <em>jash.show()</em></h4>
+					<ul>
+					    <li><h5><em>jash.dump()</em></h5>
+						    <p>
+							To quickly see all of the members of a
+							particular Object, you can pass the object
+							into the Jash.dump() function. For example, typing
+							this simple command into the input console and
+							pressing the Enter key will show all of the members
+							of the window object (i.e. all objects, functions, variables
+							in the global scope):
+						    </p>
+						    <pre>jash.dump(window);</pre>
+						    <p>
+						    	The <em>jash.dump()</em> function will show
+							as much as possible about the members of 
+							an object.  If the member is a function that
+							is native to the browser (such as <em>alert()</em>),
+							Jash can only show that it is native
+							code (i.e. cannot show the internal workings
+							of the function). Environmental functions and
+							variables, though, are fully expanded to show 
+							their values. 
+						    </p>
+						    <p>
+						    	<em>jash.dump()</em> does not expand child members 
+							that are Objects - though you can then 
+							pass such an object into jash.dump() to see its members. 
+						    </p>
+					    </li>
+					    <li><h5><em>jash.show()</em></h5>
+					    	<p>
+							The <em>show()</em> method will only display 
+							an object's members and their types (i.e. function, object, 
+							number, etc.). This can be more useful than 
+							using <em>dump()</em> when inspecting
+							objects with many members (such as the <em>window</em>
+							object).
+						</p>
+					    </li>
+				       </ul>
+				</li>
+				<li class="subtopic"><h4>CSS entry mode</h4>
+				    <ol>
+					<li><h5>How CSS entry mode works</h5>
+						<p>CSS entry mode takes advantage of the DOM 
+						stylesheet capabilities of the supported browsers
+						in order to add new style rules to the document. 
+						</p>
+						<p>It is important to note that CSS entry in Jash
+						is only <i>additive</i>.  When entering 
+						new style rules into the console, the rules are 
+						added to the DOM; previous CSS entries are
+						not overwritten or deleted. 
+						</p>
+						<p>CSS entry is currently supported in 
+						IE6+ (Windows) and FF1.5+ (Windows, Mac, Linux).
+						Due to DOM incompatibilities, this 
+						feature is not supported in Safari or
+						Opera at the time of this writing. 
+						</p>
+					</li>
+					<li><h5>Evaluating css</h5>
+						<p>To evaluate CSS, one must first enable 
+						CSS entry mode (using the hotkey combination or
+						by pressing the button).  Once activated, 
+						arbitrary CSS can be entered into 
+						the console and evaluated. 
+						</p>
+						<pre>body { background: pink; }
+a { color: blue; }
+div.myThing { filter:alpha(opacity=30); text-indent: 30px; _padding-left: -230px; }
+						</pre>
+						<p>Unlike Javascript entry mode, 
+						CSS entry mode allows for multiple lines
+						to be typed in - i.e. pressing the 
+						Enter key while the cursor is in the 
+						input area does not evaluate the CSS. To 
+						evaluate the input, the Evaluate button 
+						must be clicked or the Evaluate hotkey 
+						combination must be entered on the keyboard.
+						</p>
+						<p>There is no limitation on what 
+						kind of CSS rules can be entered into 
+						the input console in CSS entry mode.
+						Any CSS entry that is valid CSS will 
+						be successfully added to the DOM.
+						</p>
+						<p>CSS rules are added to the bottom of the 
+						document's list of stylesheets, after
+						all other existing rules.</p>
+					
+					</li>
+					<li><h5>Clearing css entries</h5>
+						<p>In Firefox, clearing custom CSS entries
+						from the DOM is as simple as turning CSS entry
+						mode off (by clicking on the CSS
+						entry mode button or by using the CSS entry 
+						mode hotkey combination). When you turn
+						on CSS entry mode once again, the 
+						rules you entered before will reapply 
+						to the current document.</p>
+						<p>Unfortunately, there is no way to turn on / off
+						custom rules in Internet Explorer.</p>
+						<p>To clear all CSS rules entered 
+						on the page altogether, you must 
+						reload the page.</p>
+					</li>
+				    </ol>
+				</li>
+				<li class="subtopic"><h4>Hotkeys (i.e., Access Keys)</h4>
+					<p>
+						The use of hotkey combinations makes using Jash a much easier
+						proposition.  For example, using the hotkey combination to enable/disable
+						the mouseover DOM inspector makes perfect sense when you wish to capture
+						the element underneath the mouse cursor.  The following is a list
+						of the supported hotkey combinations in Jash.  
+					</p>
+					<p>
+						Hotkeys take advantage of the <em>accessKey</em> property 
+						of HTML nodes; therefore, the key combinations used for
+						hotkeys will vary from browser to browser.  Quick reference tables
+						have been constructed below for your reference.
+					</p>
+					<ol>
+						<li><h5>General</h5> 
+							<table>
+								<thead>
+									<td>Internet Explorer</td>
+									<td>Firefox / Win</td>
+									<td>Firefox / Mac</td>
+									<td>Firefox / Linux</td>
+									<td>Opera</td>
+									<td>Function</td>
+								</thead>
+								<tr>
+									<td>ESC</td>
+									<td>ESC</td> 
+									<td>ESC</td> 
+									<td>ESC</td> 
+									<td>ESC</td> 
+									<td>show/hide Jash</td>
+								</tr>
+								<tr>
+									<td>Alt-Z</td>
+									<td>Alt-Shift-Z</td>
+									<td>Ctrl-Z</td>
+									<td>Alt-Z</td>
+									<td>Shift-Esc-Z</td>
+									<td>Evaluate input</td>
+								</tr>
+								<tr>
+									<td>Alt-X</td>
+									<td>Alt-Shift-X</td>
+									<td>Ctrl-X</td>
+									<td>Alt-X</td>
+									<td>Shift-Esc-X</td>
+									<td>Activate/deactivate DOM inspector</td>
+								</tr>
+								<tr>
+									<td>Alt-A</td>
+									<td>Alt-Shift-A</td>
+									<td>Ctrl-A</td>
+									<td>Alt-A</td>
+									<td>Shift-Esc-A</td>
+									<td>Activate/deactivate innerHTML dump (only works w/ DOM inspector)</td>
+								</tr>
+								<tr>
+									<td>Alt-C</td>
+									<td>Alt-Shift-C</td>
+									<td>Ctrl-C</td>
+									<td>Alt-C</td>
+									<td>Shift-Esc-C</td>
+									<td>Clear output</td>
+								</tr>
+								<tr>
+									<td>Alt-S</td>
+									<td>Alt-Shift-S</td>
+									<td>Ctrl-S</td>
+									<td>Alt-S</td>
+									<td>Shift-Esc-S</td>
+									<td>Alt-S toggle CSS entry mode on / off</td>
+								</tr>
+							</table>
+						</li>
+						<li><h5>Javascript Entry Mode</h5>
+							<table>
+								<thead>
+									<td>Key stroke (All Browsers)</td>
+									<td>Function</td>
+								</thead>
+								<tr>
+									<td>up arrow</td>
+									<td>retrieve last input</td>
+								</tr>
+								<tr>
+									<td>down arrow</td>
+									<td>retrieve next input</td>
+								</tr>
+								<tr>
+									<td>Enter</td>
+									<td>Evaluate input</td>
+								</tr>
+								<tr>
+									<td>Tab</td>
+									<td>auto-complete input</td>
+								</tr>
+							</table>
+						</li>
+						<li><h5>CSS Entry Mode</h5>
+							<table>
+								<thead>
+									<td>Key stroke (All Browsers)</td>
+									<td>Function</td>
+								</thead>
+								<tr>
+									<td>Tab (while typing selector only)</td>
+									<td>auto-complete class name or id</td>
+								</tr>
+							</table>
+						</li>
+					</ol>
+				</li>
+				<li class="subtopic"><h4>Using the DOM mouseover tool</h4>
+					<p>
+						The DOM mouseover tool allows you to quickly see the parent
+						nodes of any "top layer" HTML element.  In addition, it captures the 
+						element under the mouse pointer in scope and places a 
+						reference to it in the input console. This provides the ability
+						to quickly grab an element and manipulate it as you 
+						wish. 
+					</p>
+				    <ol>	
+					    <li><h5>Activating and using DOM mouseover</h5>
+							<p>
+								To activate the DOM mouseover tool, click on the 
+								"Mouseover DOM" button or use the Mouseover Dom hotkey 
+								combination (see the Hotkeys section). 
+							</p>
+							<p>
+								When the tool is active, you may hover your mouse
+								over any element on a web page to see information about
+								that element's parent tree.  The tool also displays
+								a basic set of attributes: id, class name, and href 
+								(when hovering over anchors). 
+							</p>
+							<p>
+								You may also view a "prettified" (tab-indented) version of 
+								the innerHTML property of any element by switching on
+								the InnerHTML Dump feature (see below). 
+							</p>
+						</li>
+					    <li><h5>Storing element under mouse pointer</h5>
+							<p>
+								To capture the current element - in other words, 
+								to pause the tool - simply enter the hotkey combination 
+								for the mouseover tool once again to toggle it off. 
+							</p>
+						</li>
+				    </ol>
+				</li>
+				<li class="subtopic"><h4>InnerHTML Dump</h4>
+					<p>
+						The InnerHTML Dump feature provides a properly-indented, 
+						readable view of an element's innerHTML property.
+					<ul>
+						<li><h5>Activating and using InnerHTML Dump</h5></li>
+						<li><h5>Caution</h5></li>
+					</ul>
+				</li>
+				</li>
+				<li class="subtopic"><h4>Tab-completion</h4>
+				    <p>
+					When pressing the tab key after the current javascript input, 
+					Jash attempts name completion of the item in the scope 
+					of the browser window. It attempts to complete javascript objects, functions,
+					element ids, and element class names.  This feature
+					allows extremely quick visibility into the guts of the 
+					Javascript and/or DOM on a particular page. 
+				    </p>
+				    <ol>
+					    <li><h5>Javascript object completion</h5>
+							<p>
+								In Javascript entry mode (i.e., the default mode), one can 
+								enter a partial name of a function, object, or variable
+								and press tab to attempt tab completion.  If multiple 
+								matches are found, an alphabetized list of possible matches
+								will be listed in the output console after pressing tab. 
+								If only one match is found, it will automatically be entered
+								into the input console. If multiple matches are found
+								but all begin with the same series of characters, that 
+								series will be entered into the input console and a list
+								of matches will display in the output console.
+							</p>
+						</li>
+						<li><h5>HTML element id, class name completion in Javascript Mode</h5></li>
+						<li><h5>HTML element id, class name completion in CSS Mode</h5></li>
+					    <li><h5>A word about scope</h5></li>
+					    
+					    <li><h5>How to add your custom HTML element id, class name function</h5></li>
+				    </ol>
+				</li>
+				<li class="subtopic"><h4>Showing/hiding Jash</h4>
+					<p>Jash can be hidden by pressing the Escape (Esc) key, by clicking
+					on the "X" button at the top right of the Jash console, 
+					or by clicking on the "Hide" button.  When Jash is hidden, 
+					it can only be shown again by using the bookmarklet once again 
+					or by pressing the Escape key again.</p> 
+				</li>
+				<li class="subtopic"><h4>Retrieving input history</h4></li>
+				<li class="subtopic"><h4>Using the Jash.Profiler object (execution timer)</h4>
+					<ol>
+						<li><h5>Simple function profiling</h5></li>
+						<li><h5>Profiling loops</h5></li>
+					</ol>
+				</li>
+				<li class="subtopic"><h4>Using the StopWatch object</h4></li>
+				<li class="subtopic"><h4>Integrating Jash into your script as a debugger</h4>
+					<ol>
+						<li><h5>Basic integration using bookmarklet</h5></li>
+						<li><h5>Fully integrating Jash into your environment</h5></li>
+						<li><h5>A note about coding style</h5></li>
+					</ol>
+				</li>
+			</ul>
+		</li>
+		<li><h3>Customizing Jash</h3>
+			<ul>	
+				<li class="subtopic"><h4>Skinning Jash with your own CSS</h4>
+					<p>By default, Jash uses a css file (<a href="/jash/source/latest/Jash.css">Jash.css</a>)
+					to control its appearance.  You can change the location of the css file by 
+					copying Jash to your own server (or desktop computer) and
+					changing the "jashRoot" property (in Jash.js or Jash_source.js) 
+					to point to the folder containing your
+					version of Jash.css. You must then reference your local copy of
+					Jash.js in your bookmarklet.</p>
+				</li>
+			</ul>
+		</li>
+		<li><h3>Reporting bugs</h3>
+			<p>
+				At the moment, Jash is a one-man operation.  Please send any bugs via 
+				email to billy dot reisinger at gmail dot com.
+			</p>
+		</li>
+		<li><h3>Feature requests</h3>
+			<p>
+				At the moment, Jash is a one-man operation.  Please send any feature 
+				requests via email to billy dot reisinger at gmail dot com.
+			</p>
+		</li>
+	</ol>
+</div>
+</body>
+</html>

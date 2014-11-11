@@ -1,0 +1,200 @@
+<html>
+<head>
+	<title>Jash: JavaScript Shell</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="SHORTCUT ICON" href="favicon.ico" />
+</head>
+<body>
+<div class="wrap">
+	<h1>Jash: JavaScript Shell</h1>
+	<ul class="nav">
+		<li><a href="index.html">Home</a></li>
+		<li><a href="features.html">Features</a></li>
+		<li><a href="documentation.html">Documentation</a></li>
+		<li><a href="download.html">Download</a></li>
+		<li><a href="screenshots.html">Screenshots</a></li>
+	</ul>
+	<h3>A Cross-Browser Javascript Command-Line Debugging Tool</h3>
+	<h2>Features</h2>
+	<h3>Features List</h3>
+	<ul class="features">
+		<li><a href="#cmd">Command-line JavaScript execution</a></li>
+		<li><a href="#dom">DOM mouseover tool</a></li>
+		<li><a href="#css">CSS Input Mode</a></li>
+		<li><a href="#tab">Tab-completion</a></li>
+		<li><a href="#hist">Command history</a></li>
+		<li><a href="#prof">Profiler (execution timer)</a></li>
+		<li><a href="#stop">Stop watch</a></li>
+		<li><a href="#obj">Object inspection</a></li>
+		<li><a href="#simp">Simple console output</a></li>
+		<li><a href="#skin">Skin-able</a></li>
+		<li><a href="#keys">Uses hotkeys.</a></li>	
+	</ul>
+	
+	<h3>Features Detail</h3>
+	<ul class="features">
+		<li><a name="cmd"></a>
+		<a href="images/examples/jash_jsinput.jpg" style="float:right; margin: 10px;">
+			<img src="images/examples/jash_jsinput_120.jpg" alt="screenshot" title="screenshot" style="border: 1px solid black" />
+		</a>
+	
+		
+		
+		Command-line execution of javascript, in the scope of the current web page</li>
+		
+		<li><a name="dom"></a>DOM mouseover tool
+			<ul>
+				<li>Shows node name, id, and class name of node under mouse pointer</li>
+				<li>Shows all parent nodes of node under mouse pointer</li>
+				<li>Stores node under mouse pointer in scope and automatically enters it into the 
+					input field, for easy manipulation</li>
+				<li>With InnerHTML Dump enabled, the DOM mouseover tool will also show a neatly-indented
+					version of the current element's innerHTML property</li>
+			</ul>
+		</li>
+		<li><a name="css"></a>CSS Input Mode
+			<ul>
+				<li>Enables input of arbitrary css. Example: 
+			<pre>
+	#myDiv .myLi { background: purple; height: 32px; }
+	.dumbLink:hover { font: monospace; }
+			</pre>
+				</li>
+				<li>In Firefox, rules can be applied / unapplied by turning	css input mode on/off.</li>
+			</ul>
+		</li>
+		<li><a name="tab"></a>Tab-completion
+			<ul>
+				<li>Pressing tab auto-completes your input based on the current window's scope</li>
+				<li>If more than one match is found, shows multiple matches</li>
+				<li>Completes javascript objects, element ids (when typing in document.getElementById), or element class names (when using certain functions) based on current window scope.</li>
+				<li>Completes element ids and element class names based on current window in CSS Entry mode</li>
+			</ul>
+		</li>
+		<li><a name="hist"></a>Command history	
+			<ul>
+				<li>Every command entered into the javascript input console is stored
+				for easy retrieval.</li>
+				<li>Use the up / down arrow keys to navigate through command history</li>
+			</ul>
+		</li>
+		<li><a name="prof"></a>Profiler (execution timer)
+			<ul>
+				<li>Runs performance checks on a given function.  Reports the average milliseconds
+					needed to execute a given function over a given number of executions. For example: 
+					<pre>
+	Input: 
+	f = function() { 
+		i=50000;
+		while(i>0) i--;
+	}
+	t = new Profiler(f);
+	t.multiPass(10);
+	
+	Output:
+	-------PROFILER----------------------------------------------
+	function () {
+		i = 50000;
+		while (i > 0) {
+			i--;
+		}
+	}
+	-------PROFILER----------------------------------------------
+	Type of profile: runOnce
+	Average execution time: 146ms
+	Average calculated from 10 pass(es)
+	-------PROFILER----------------------------------------------
+					</pre>
+				</li>
+				<li>The Profiler.multiPass() method allows you to run looped code in a regular for loop or a 
+					reverse while loop, as well: 
+					<pre>
+	t.multiPass(10,"forLoop",100); 	//execute f() in a for loop of 100 iterations 10 times
+	t.multiPass(5,"reverseWhile",200); //execute f() in a reverse while loop of 200 iterations 5 times
+					</pre>
+				</li>
+				<li>The Profiler will automatically store and average results for different types of
+					executions.  For example, if you do a multi-pass operation for 300 times, the Profiler
+					will give you the average of all three hundred executions.  If you do a multi-pass operation
+					with a loop, Profiler will store results for that loop / iteration combination discretely 
+					from other loop/iteration combinations. For example, 
+					<pre>
+	t.multiPass(10,"forLoop",100);
+					</pre>
+					will necessarily have different results from 
+					<pre>
+	t.multiPass(10,"forLoop",200);
+					</pre>
+					as the latter loops 100 more times than the former. Profiler recognizes this and stores
+					their results discretely. 
+				</li>
+			</ul>
+		</li>
+		<li><a name="stop"></a>Stop watch
+			<ul>
+				<li>The stopWatch object can be used to time execution speeds - useful during
+					script optimization
+					<pre>
+	jash.stopWatch.start();
+	while(i>0) {
+		//something 
+		i--;
+	}
+	jash.print(jash.stopWatch.stop());
+					</pre>
+				</li>
+			</ul>
+		</li>
+		<li><a name="obj"></a>Object inspection
+			<ul>
+				<li>The dump() method prints the names and contents of all members of an object</li>
+				<li>The show() method prints the names and types of all members of an object</li>
+				<pre>
+	jash.dump(window);		//be prepared to see a ton of stuff 
+	jash.show(window);		//easier to scan large objects with
+				</pre>
+			</ul>
+		</li>
+		<li><a name="simp"></a>Simple console output	
+			<ul>
+				<li>The console has a print() method, which prints a line of arbitrary
+					text and optionally clears the console before doing so.  This is probably the most
+					used method when using the console to debug scripts during execution (think of it
+					as a practical and more useful replacement to "alert()").
+					<pre>
+	var thing = (Math.random() * 1000) % 456;
+	if(thing > 400) {
+		jash.print("thing is more than 400...");
+		//something useful happens...
+	}
+					</pre>
+				</li>
+			</ul>
+		</li>
+		<li><a name="skin"></a>Skin-able
+			<ul>
+				<li>Jash is built in the current document with XHTML and CSS.
+					Jash uses a simple table-less layout and incorporates an external stylesheet
+					to control how it looks.  You can easily change the appearance of the debugger
+					using CSS by changing the stylesheet or using your own stylesheet. 
+				</li>
+			</ul>
+		</li>
+		<li><a name="keys"></a>Uses hotkeys.  In Firefox 2.0, use Alt-Shift instead of Alt. Macintosh users, replace the alt key with the control key. 
+			<ul>
+				<li>Alt-X to turn on/off DOM mouseover tool</li>
+				<li>Alt-S to turn on/off CSS input mode</li>
+				<li>Alt-C clears the input and output</li>
+				<li>Alt-Z executes the current input</li>
+				<li>Alt-Q enables/disables transparent mode</li>
+				<li>Esc hides/shows Jash</li>
+				
+				<li>Arrow up and arrow down retrieve the last or next command entered into 
+					the console, respectively.</li>
+			</ul>
+				
+		</li>
+	</ul>
+</div>
+</body>
+</html>

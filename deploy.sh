@@ -13,4 +13,4 @@ if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
   exit 1
 fi
 
-jekyll build && rsync -avz --delete -e "ssh -p ${port}" _site/ ${username}@${host}:~/public_html2/
+jekyll build && rsync -avz --delete -e "ssh -p ${port}" _site/ ${username}@${host}:~/public_html/
