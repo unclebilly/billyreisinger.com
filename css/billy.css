@@ -76,12 +76,15 @@ ul.contact i {
   max-width: 100%;
   max-height: 100%;        
 }
-
+header.container {
+  padding-bottom: 20px;
+}
 @media print {
   body {
-    font-size: 12pt;
+    font-size: 10pt;
   }
   div.navbar-header {
     display: block;
   }
+
 }
