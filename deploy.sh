@@ -13,4 +13,5 @@ if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
   exit 1
 fi
 
-jekyll build && rsync -avz --delete --exclude='music' -e "ssh -p ${port}" _site/ ${username}@${host}:~/public_html/
+bundle exec jekyll build && \
+rsync -avz --delete --exclude='music' -e "ssh -p ${port}" _site/ ${username}@${host}:~/public_html/
